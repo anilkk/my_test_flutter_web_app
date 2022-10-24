@@ -1,0 +1,12 @@
+{
+    "@@locale": "en",
+    "pageHomeWelcomeMessage": "Greetings!!!",
+    "title": "Lokalise SDK",
+    "@title": {
+      "type": "text",
+      "placeholders": {}
+    },
+    "welcome_header": "Welcome",
+    "insentive": "Іnsentive",
+    "sugnup_button": "Signup Button"
+}

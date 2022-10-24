@@ -1,7 +1,12 @@
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:lokalise_flutter_sdk/ota/lokalise_sdk.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  Lokalise.init('Lokalise SDK Token', 'Project ID');
+  Lokalise.preRelease(true); // Add this only if you want to use prereleases
+  Lokalise.setVersion(0);
   runApp(const MyApp());
 }
 
@@ -11,7 +16,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final wordPair = WordPair.random(); // Add this line.
     return MaterialApp(
       title: 'Flutter Demo Anil',
       theme: ThemeData(
@@ -27,6 +31,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page Anil'),
+      onGenerateTitle: (context) => Tr.of(context).welcome_header,
+      localizationsDelegates: const [
+        Tr.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: Tr.delegate.supportedLocales,
     );
   }
 }
@@ -65,6 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final wordPair = WordPair.random(); // Add this line.
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -104,6 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            Text(wordPair.asPascalCase),
           ],
         ),
       ),
