@@ -2,6 +2,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lokalise_flutter_sdk/ota/lokalise_sdk.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'generated/l10n.dart';
 
 void main() {
   Lokalise.init('Lokalise SDK Token', 'Project ID');
@@ -63,6 +64,22 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Lokalise.update().then(
+        // after localization delegates
+        (response) => setState(() {
+              //Tr.load(const Locale('de')); // if you want to change locale
+              Tr.load(const Locale('en'));
+              _isLoading = false;
+            }),
+        onError: (error) => setState(() {
+              _isLoading = false;
+            }));
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -86,10 +103,10 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          // title: Text(widget.title),
+          title: Text(Tr.of(context).title)),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
@@ -117,7 +134,13 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            Text(wordPair.asPascalCase),
+            //Text(wordPair.asPascalCase),
+            Center(
+                child: _isLoading
+                    ? const CircularProgressIndicator()
+                    : Center(
+                        child: Text(Tr.of(context).pageHomeWelcomeMessage),
+                      ))
           ],
         ),
       ),

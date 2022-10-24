@@ -62,7 +62,7 @@ class Tr {
   /// `Greetings!!!`
   String get pageHomeWelcomeMessage {
     return Intl.message(
-      'Greetings!!!',
+      'MY best Greetings!!!',
       name: 'pageHomeWelcomeMessage',
       desc: '',
       args: [],
@@ -82,7 +82,7 @@ class Tr {
   /// `Welcome`
   String get welcome_header {
     return Intl.message(
-      'Welcome',
+      'Welcome to Flutter demo app',
       name: 'welcome_header',
       desc: '',
       args: [],
